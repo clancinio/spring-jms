@@ -66,3 +66,22 @@ public class MyMessageListener {
 ```
 
 In this example, the `onMessage()` method is annotated with `@JmsListener`, which tells Spring to create a message listener container for receiving messages from the myQueue JMS destination. The containerFactory attribute specifies the name of the `DefaultJmsListenerContainerFactory` bean to use for creating the message listener container.
+
+### Docker Compose file - ActiveMQ
+
+```properties
+version: "3.9"
+services:
+  activemq:
+    image: rmohr/activemq:5.16.0
+    ports:
+      - "61616:61616"
+      - "8161:8161"
+    environment:
+      ACTIVEMQ_ADMIN_LOGIN: admin
+      ACTIVEMQ_ADMIN_PASSWORD: admin
+```
+
+This Compose file defines a single service named activemq that uses the rmohr/activemq Docker image version 5.16.0. The service exposes two ports: 61616 for the ActiveMQ broker and 8161 for the web console.
+
+You can run this Compose file using the docker-compose up command in the directory where the file is located.
