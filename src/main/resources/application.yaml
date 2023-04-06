@@ -1,0 +1,13 @@
+activemq:
+  broker-url: tcp://localhost:61616
+  user: admin
+  password: admin
+  pool:
+    max-connections: 10
+    idle-timeout: 30000
+jms:
+  listener:
+    concurrency: 1-10
+    acknowledge-mode: auto
+  template:
+    default-destination-type: queue
