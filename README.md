@@ -85,3 +85,5 @@ services:
 This Compose file defines a single service named activemq that uses the rmohr/activemq Docker image version 5.16.0. The service exposes two ports: 61616 for the ActiveMQ broker and 8161 for the web console.
 
 You can run this Compose file using the docker-compose up command in the directory where the file is located.
+
+Go to http://localhost:8161/ to access the console.

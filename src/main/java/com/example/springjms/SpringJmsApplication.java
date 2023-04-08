@@ -1,5 +1,6 @@
 package com.example.springjms;
 
+import com.example.springjms.messaging.jms.MessageSender;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -14,9 +15,9 @@ public class SpringJmsApplication {
 
 		SpringApplication.run(SpringJmsApplication.class, args);
 		ConfigurableApplicationContext context = SpringApplication.run(SpringJmsApplication.class, args);
-		JmsTemplate jmsTemplate =  context.getBean(JmsTemplate.class);
+		MessageSender sender =  context.getBean(MessageSender.class);
 
-		jmsTemplate.convertAndSend("order-queue", "Hello JMS!");
+		sender.sendMessage("order-queue", "Hello JMS!");
 	}
 
 }

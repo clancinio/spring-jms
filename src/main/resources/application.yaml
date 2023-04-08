@@ -7,7 +7,7 @@ activemq:
     idle-timeout: 30000
 jms:
   listener:
-    concurrency: 1-10
+    concurrency: 1-1
     acknowledge-mode: auto
   template:
-    default-destination-type: queue
+    default-destination-type: order-queue
