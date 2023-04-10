@@ -13,4 +13,5 @@ public class MessageSender {
   public void sendMessage(String destination, String message) {
     jmsTemplate.convertAndSend(destination, message);
   }
+
 }

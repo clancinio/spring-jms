@@ -1,10 +1,46 @@
-## spring-jms application
+# Spring Boot Application with JMS and ActiveMQ Docker Compose
+
+This is a sample Spring Boot application that uses JMS (Java Messaging Service) with ActiveMQ message broker. It also includes a Docker Compose file that sets up an ActiveMQ broker instance as a Docker container.
+
+## Requirements
+
+- Docker
+- JDK 8 or later
+- Gradle
+
+## Running the Application
+
+To run the application, follow these steps:
+
+1. Clone the repository: `git clone https://github.com/example/spring-boot-jms-activemq.git`
+2. Navigate to the project directory: `cd spring-boot-jms-activemq`
+3. Build the application: `mvn clean install`
+4. Start the ActiveMQ broker using Docker Compose: `docker-compose up -d`
+5. Run the Spring Boot application: `java -jar target/spring-boot-jms-activemq-1.0-SNAPSHOT.jar`
+
+The application should start up and connect to the ActiveMQ broker. You can then send messages to the application using a JMS client.
+
+## Using a JMS Client
+
+To send messages to the application, you can use any JMS client that supports the ActiveMQ broker. Here's an example of using the `jms-send` utility that comes with ActiveMQ:
+
+1. Download the ActiveMQ distribution from [here](https://activemq.apache.org/components/classic/download/).
+2. Extract the distribution to a directory on your machine.
+3. Navigate to the `bin` directory in the extracted distribution.
+4. Start the utility: `./jms-send tcp://localhost:61616 queue-name "Hello, World!"`
+    - Replace `queue-name` with the name of the JMS queue that the application is listening to.
+
+The application should receive the message and log it to the console.
+
+## Docker Compose
+
+The `docker-compose.yml` file in the project directory sets up an ActiveMQ instance as a Docker container. The container is configured to expose the default ActiveMQ ports (61616 and 8161).
+
+To start the ActiveMQ container, navigate to the project directory and run the following command:
+
+
 
 *****
-
-### Description 
-
-This is a Spring application that utilizes JMS (Java Messaging Service) to send and receive messages to/from an ActiveMQ message broker.
 
 
 ### What is JMS?
@@ -69,7 +105,7 @@ In this example, the `onMessage()` method is annotated with `@JmsListener`, whic
 
 ### Docker Compose file - ActiveMQ
 
-```properties
+```dockerfile
 version: "3.9"
 services:
   activemq:
@@ -87,3 +123,17 @@ This Compose file defines a single service named activemq that uses the rmohr/ac
 You can run this Compose file using the docker-compose up command in the directory where the file is located.
 
 Go to http://localhost:8161/ to access the console.
+
+### MessageConverter
+
+MessageConverter is an interface in Spring Framework that provides a way to convert between Java objects and JMS messages. It is used to serialize and deserialize Java objects into JMS messages and vice versa, allowing Java applications to send and receive complex objects over a JMS provider.
+
+MessageConverter defines two main methods: toMessage() and fromMessage(). The toMessage() method takes a Java object and converts it into a JMS message, while the fromMessage() method takes a JMS message and converts it into a Java object.
+
+Spring provides several implementations of the MessageConverter interface, including:
+
+- SimpleMessageConverter: A simple message converter that supports conversion between JMS TextMessages and Java objects using serialization.
+- MappingJackson2MessageConverter: A message converter that uses the Jackson library to convert Java objects to and from JSON format.
+- MarshallingMessageConverter: A message converter that uses Spring's Marshaller and Unmarshaller interfaces to convert Java objects to and from XML format.
+- BytesMessageConverter: A message converter that converts Java objects to and from JMS BytesMessages.
+MessageConverter is often used in combination with Spring's JmsTemplate and JmsListenerContainerFactory to simplify the sending and receiving of messages over JMS. By using a message converter, you can send and receive complex Java objects over JMS without having to deal with low-level JMS APIs.
