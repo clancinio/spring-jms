@@ -17,7 +17,7 @@ To run the application, follow these steps:
 3. Start the ActiveMQ broker using Docker Compose: `docker-compose up`
 4. Run the application
 
-The application should start up and connect to the ActiveMQ broker. You can then send messages to the application using a JMS client.
+The application should start up on port `8088` and connect to the ActiveMQ broker. You can then send messages to the application using the REST endpoint provided below.
 
 ## Docker Compose
 
